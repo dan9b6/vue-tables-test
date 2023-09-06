@@ -3,6 +3,8 @@ import { createStore } from "vuex";
 const store = createStore({
   state() {
     return {
+      // Nothing initially.
+      // We'll use the grade data directly to work out what we need
       filterOptions: [
 
       ],
@@ -73,19 +75,23 @@ const store = createStore({
   },
   mutations: {
     createFilters(state) {
+      // For every student
       state.gradeData.forEach((student) => {
+        // For every grade
         student.grades.forEach((grade) => {
+          // Is this subject already in the filter options?
           if(state.filterOptions.reduce((acc, current) => {
             if(current.label === grade.subject) return true;
             return acc;
           }, false) !== true) {
+            // No - we better add it.
             state.filterOptions.push({
               label : grade.subject,
               checked : false
             });
           }
-        })
-      })
+        });
+      });
     },
     clearFilters(state) {
       state.filterOptions.forEach((item) => {
