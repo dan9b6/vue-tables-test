@@ -14,14 +14,17 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(student, studentIndex) in $store.state.gradeData" :key="studentIndex">
+      <tr
+        v-for="(student, studentIndex) in $store.state.gradeData"
+        :key="studentIndex"
+      >
         <td data-item="name">{{ student.name }}</td>
         <template
           v-for="(filterColumn, filterIndex) in $store.state.filterOptions"
           :key="filterIndex"
         >
           <td v-if="filterColumn.checked" :data-heading="filterColumn.label">
-              {{ getStudentGrade(studentIndex, filterColumn.label )}}
+            {{ getStudentGrade(studentIndex, filterColumn.label) }}
           </td>
         </template>
       </tr>
@@ -30,18 +33,20 @@
 </template>
 <script>
 export default {
-    created() {
-        this.$store.commit('createFilters');
+  created() {
+    this.$store.commit("createFilters");
+  },
+  methods: {
+    getStudentGrade(studentIndex, subject) {
+      const grade = this.$store.state.gradeData[studentIndex].grades.filter(
+        (grade) => grade.subject === subject
+      );
+      if (grade.length > 0) {
+        return grade[0].grade;
+      }
+      return "-";
     },
-    methods : {
-        getStudentGrade(studentIndex, subject) {
-            const grade = this.$store.state.gradeData[studentIndex].grades.filter((grade) => grade.subject === subject);
-            if(grade.length > 0) {
-                return grade[0].grade;
-            }
-            return '-';
-        }
-    }
+  },
 };
 </script>
 <style lang="scss"></style>
