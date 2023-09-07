@@ -6,6 +6,9 @@ const store = createStore({
       // Nothing initially.
       // We'll use the grade data directly to work out what we need
       filterOptions: [],
+
+      gradeOptions: ["A", "B", "C", "D", "E", "F"],
+
       // This has probably been loaded from an API
       gradeData: [
         {
@@ -97,6 +100,15 @@ const store = createStore({
       state.filterOptions.forEach((item) => {
         item.checked = false;
       });
+    },
+    updateGrades(state, payload) {
+      state.gradeData
+        .find((x) => x.name === payload.name)
+        .grades.map((item) => {
+          if (item.subject === payload.subject) {
+            item.grade = payload.grade;
+          }
+        });
     },
   },
 });
