@@ -4,11 +4,11 @@ const store = createStore({
   state() {
     return {
       filterOptions: [
-        { name: "", label: "Reading", checked: false },
-        { reading: "A", label: "Writing", checked: false },
-        { reading: "A", label: "Mathematics", checked: false },
-        { reading: "A", label: "Science", checked: false },
-        { reading: "A", label: "Art & Design", checked: false },
+        { name: "reading", label: "Reading", checked: false },
+        { name: "writing", label: "Writing", checked: false },
+        { name: "mathematics", label: "Mathematics", checked: false },
+        { name: "science", label: "Science", checked: false },
+        { name: "art", label: "Art", checked: false },
       ],
     };
   },
