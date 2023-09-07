@@ -23,18 +23,27 @@
           v-for="(filterColumn, filterIndex) in $store.state.filterOptions"
           :key="filterIndex"
         >
-          <td v-if="filterColumn.checked" :data-heading="filterColumn.label">
-            {{ getStudentGrade(studentIndex, filterColumn.label) }}
-          </td>
+          <DataResult
+            v-if="filterColumn.checked"
+            :data="getStudentGrade(studentIndex, filterColumn.label)"
+            :data-heading="filterColumn.label"
+            :data-column="filterColumn"
+            :student="student.name"
+          />
         </template>
       </tr>
     </tbody>
   </table>
 </template>
 <script>
+import DataResult from "./DataResult.vue";
+
 export default {
   created() {
     this.$store.commit("createFilters");
+  },
+  components: {
+    DataResult,
   },
   methods: {
     getStudentGrade(studentIndex, subject) {
